@@ -88,3 +88,48 @@ def max_area(height)
 end
 ```
 
+#### 3. Integer to Roman
+
+Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
+
+**Example 4:**
+
+```
+Input: 58
+Output: "LVIII"
+Explanation: L = 50, V = 5, III = 3.
+```
+
+**Example 5:**
+
+```
+Input: 1994
+Output: "MCMXCIV"
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+```
+
+```ruby
+# @param {Integer} num
+# @return {String}
+# 1. while num != 0, then while num >= values, concatenate the correspoding str and substract the value from num, stop looping when num != values, add 1 to i
+
+def int_to_roman(num)
+    return "" if num < 1 || num > 3999
+    
+    values = [1000,900,500,400,100,90,50,40,10,9,5,4,1]
+    strs = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"]
+    
+    romanStr = ""
+    i = 0 
+    while num > 0 
+        while num >= values[i] 
+            num -= values[i] 
+            romanStr += strs[i] 
+        end
+        i += 1 
+    end
+    romanStr
+    
+end
+```
+
