@@ -192,3 +192,58 @@ class Solution(object):
         
 ```
 
+#### 6. 3 sum
+
+Given an array `nums` of *n* integers, are there elements *a*, *b*, *c* in `nums` such that *a* + *b* + *c* = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Notice that the solution set must not contain duplicate triplets.
+
+ 
+
+**Example 1:**
+
+```
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+```
+
+```python
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # sort nums
+        nums.sort() #[-4,-1,-1,0,1,2]
+        result = []
+        # we need to find 3 numbers, so max i should be at the index of len(nums)-2
+        for i in range(len(nums)-1): # (0,5)
+            # while number is equal to its previous number, no need to find sum
+            # avoid duplicates
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            key1 = nums[i] # -1
+            sumKeys = -nums[i] # 1
+            lo = i+1
+            hi = len(nums) - 1 #5
+            while lo < hi: # 0 + 1 = 1
+                if nums[lo] + nums[hi] == sumKeys:
+                    result.append([nums[i], nums[lo], nums[hi]])
+                    while lo < hi and nums[lo] == nums[lo+1]:
+                        lo += 1 
+                    while lo < hi and nums[hi] == nums[hi-1]:
+                        hi -= 1
+                    lo += 1 
+                    hi -= 1 
+                elif nums[lo] + nums[hi] < sumKeys:
+                    lo += 1 
+                else:
+                    hi -=1                 
+
+        return result
+                
+            
+        
+```
+
