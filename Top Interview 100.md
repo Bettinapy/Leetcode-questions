@@ -133,3 +133,62 @@ def int_to_roman(num)
 end
 ```
 
+#### 4. Roman to Integer
+
+```ruby
+# @param {String} s
+# @return {Integer}
+
+def roman_to_int(s) #MCMXCIV
+    values = [1,4,5,9,10,40,50,90,100,400,500,900,1000]
+    symbols = ["I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"]
+    result = 0
+    j = symbols.length - 1 
+    i = 0
+    while i < s.length 
+        length = symbols[j].length 
+        while s[i...length+i] == symbols[j] 
+            result += values[j] 
+            i = i + length
+        end
+        j -= 1 
+    end
+    result
+end
+```
+
+#### 5. Longest Common Prefix
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string `""`.
+
+**Example 1:**
+
+```
+Input: ["flower","flow","flight"]
+Output: "fl"
+```
+
+```python
+# 1. find the shortest string in the strs array
+# 2. iterate through the shortest string, then iterate throught all the other strings in the string array, compare the character on the same index, if any different found, return the sliced string
+# 3. finally return the shortest string
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+        shortest = min(strs,key=len) 
+        for i, ch in enumerate(shortest):
+            for other in strs: 
+                if other[i] != ch: 
+                    
+                    return shortest[:i]
+        return shortest 
+        
+```
+
