@@ -247,3 +247,47 @@ class Solution(object):
         
 ```
 
+#### 7. 3 Sum closest 
+
+Given an array `nums` of *n* integers and an integer `target`, find three integers in `nums` such that the sum is closest to `target`. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
+ 
+
+**Example 1:**
+
+```
+Input: nums = [-1,2,1,-4], target = 1
+Output: 2
+Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+```
+
+```python
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort() # [-1,-1,1,1,3]
+        sums = nums[0] + nums[1] + nums[len(nums)-1] # 1
+        for i in range(len(nums)-2): #(0,2)
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            key1 = nums[i] # -1
+            lo = i + 1 # 1
+            hi = len(nums)-1 # 4
+            while lo < hi: # 1 < 2
+                newSums = key1 + nums[lo] + nums[hi] # -1
+                if target == newSums:
+                        return newSums
+                if abs(target-sums) > abs(target-newSums): # 2 > 0                   
+                    sums = newSums # -1                                   
+
+                if target < newSums:
+                    hi -= 1
+                if target > newSums:
+                    lo += 1
+        return sums
+```
+
