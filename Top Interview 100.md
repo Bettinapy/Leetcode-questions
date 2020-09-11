@@ -330,3 +330,102 @@ class Solution(object):
         return all_combines
 ```
 
+#### 9. 4 sum
+
+```python
+# 1. sort array [-2,-1,0,0,1,2]
+# 2. three sum
+# 3. add one num interation to three sum = four sum
+class Solution(object):
+    def fourSum(self, nums, target): 
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        if len(nums) < 4: return [] 
+        result = []
+        # sort nums
+        nums.sort()
+        for i in range(len(nums)-3): #(0,1,2)
+            # when nums[i] is already iterated, skip
+            if i > 0 and nums[i] == nums[i-1]: continue
+            threeSumResult = self.threeSum(nums[i+1:], target-nums[i])
+            if len(threeSumResult) > 0:
+                for r in threeSumResult:
+                    result.append([nums[i]]+r)
+        return result
+    
+    def threeSum(self, nums, target): #[-1,0,0,1,2], 2
+        if len(nums) < 3: return [] 
+        result = []
+
+        for i in range(len(nums)-2): #(0,1,2)
+            # when nums[i] is already iterated, skip
+            if i > 0 and nums[i] == nums[i-1]: continue
+            lo = i+1 # 2
+            hi = len(nums)-1 # 4          
+            while lo < hi:
+                newSums = nums[i] + nums[lo] + nums[hi] # 2
+                if newSums == target:
+                    result.append([nums[i],nums[lo],nums[hi]])
+                    print(result)
+                    while lo < hi and nums[lo] == nums[lo+1]: 
+                        lo += 1
+                    while lo < hi and nums[hi] == nums[hi-1]: 
+                        hi -= 1
+                    lo += 1 
+                    hi -= 1
+                elif newSums < target:
+                    lo += 1 # 3
+                else:
+                    hi -= 1
+        return result
+```
+
+#### 10. Valid Parentheses
+
+Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.
+
+An input string is valid if:
+
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+
+ 
+
+**Example 1:**
+
+```
+Input: s = "()"
+Output: true
+```
+
+1. Dict
+2. LIFO: Stack
+
+```python
+class Solution(object):
+    def isValid(self, s): # "([)]"
+        """
+        :type s: str
+        :rtype: bool
+        """
+        parantheses = {'(':')','{':'}','[':']'}
+        stack = []
+        for p in s:             
+            if p in parantheses: 
+                stack.append(parantheses[p]) 
+            else:
+                # if stack if empty
+                if len(stack) == 0: return False
+                last = stack.pop() 
+                if p != last: return False
+        # if stack is still not empty
+        if len(stack) != 0: return False
+        return True
+                
+       
+        
+```
+
