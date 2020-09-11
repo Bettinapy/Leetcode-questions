@@ -291,3 +291,42 @@ class Solution(object):
         return sums
 ```
 
+#### 8. Letter combinations of a phone number
+
+Given a string containing digits from `2-9` inclusive, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+![img](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png)
+
+```python
+class Solution(object):
+# 1. iterate through the digit in digits string
+# 2. iterate throught the corresponding characters, combine the character with the previous combination
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        chars = {"1":"",
+                 "2":"abc",
+                 "3":"def",
+                 "4":"ghi",
+                 "5":"jkl",
+                 "6":"mno",
+                 "7":"pqrs",
+                 "8":"tuv",
+                 "9":"wxyz"}
+        if digits:
+            all_combines = [""]
+        else:
+            return []
+        for digit in digits: #"2","3"
+            temp_combines = list() 
+            for char in chars[digit]: # "d","e","f"
+                for comb in all_combines: #["a","b","c"]
+                    temp_combines.append(comb+char) # ["ad","bd","cd","ae","be","ce","af","bf","cf"]
+            all_combines = temp_combines # ["ad","bd","cd","ae","be","ce","af","bf","cf"]
+        return all_combines
+```
+
