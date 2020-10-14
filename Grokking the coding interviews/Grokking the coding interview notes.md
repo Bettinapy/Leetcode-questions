@@ -52,3 +52,43 @@ def max_sub_array_of_size_k(k, arr):
 
 ```
 
+#### 1.4 Smallest Subarray with a given sum
+
+Given an array of positive numbers and a positive number ‘S’, find the length of the **smallest contiguous subarray whose sum is greater than or equal to ‘S’**. Return 0, if no such subarray exists.
+
+**Example 1:**
+
+```
+Input: [2, 1, 5, 2, 3, 2], S=7 
+Output: 2
+Explanation: The smallest subarray with a sum great than or equal to '7' is [5, 2].
+```
+
+```python
+import math
+def smallest_subarray_with_given_sum(s, arr):
+  # TODO: Write your code here
+  # 1. add-up elements until the sum becomes >= s, remember the length of this window as the smallest window so far
+  # 2. slide the window in a stepwise fashion
+  # 3. In each step, try to shrink the window until the sum < s and do two things: 
+  #   1. if the current window is the smallest, replace it 
+  #   2. substart the first element of the window to shrink the window
+  
+  arr_Sum = 0
+  smallest_win = math.inf
+  winStart = 0
+  for winEnd in range(len(arr)):
+    arr_Sum += arr[winEnd]
+    while arr_Sum >= s:
+      smallest_win = min(smallest_win, winEnd-winStart+1)
+      arr_Sum -= arr[winStart]
+      winStart += 1
+  if smallest_win == math.inf:
+    return 0
+  return smallest_win
+
+
+  
+
+```
+
