@@ -52,7 +52,7 @@ def max_sub_array_of_size_k(k, arr):
 
 ```
 
-#### 1.4 Smallest Subarray with a given sum
+#### 1.3 Smallest Subarray with a given sum
 
 Given an array of positive numbers and a positive number ‘S’, find the length of the **smallest contiguous subarray whose sum is greater than or equal to ‘S’**. Return 0, if no such subarray exists.
 
@@ -87,8 +87,49 @@ def smallest_subarray_with_given_sum(s, arr):
     return 0
   return smallest_win
 
+```
 
+#### 1.4 Longest Substring with K Distinct Characters
+
+Given a string, find the length of the **longest substring** in it **with no more than K distinct characters**.
+
+**Example 1:**
+
+```
+Input: String="araaci", K=2
+Output: 4
+Explanation: The longest substring with no more than '2' distinct characters is "araa".
+```
+
+```python
+def longest_substring_with_k_distinct(str, k):
+  # TODO: Write your code here
+  # 1. insert characters from the beginning of the string, until we have K distinct characters in the HashMap
+  # 2. keep adding characters in a stepwise fashion
+  # 3. try to shrink the string from the beginning if the count of characters is > K, while shrinking, decrement the count of chars in HashMap
+  # 4. check if the current window is the longest so far
+  longest_len = 0
+  subStart = 0
+  substr = {}
   
+  for subEnd in range(len(str)):
+    right_char = str[subEnd]
+    if right_char not in substr:
+      substr[right_char] = 0
+    substr[right_char] += 1
 
+    # shrink the string from the beginning of the window while the count of chars in substr is > k
+    while len(substr) > k:
+      left_char = str[subStart]
+      substr[left_char] -= 1
+      if substr[left_char] == 0:
+        del substr[left_char]
+      subStart += 1
+    
+    # check if the current window is the longest so far
+    longest_len = max(longest_len, subEnd-subStart+1)
+  
+  return longest_len
+     
 ```
 
