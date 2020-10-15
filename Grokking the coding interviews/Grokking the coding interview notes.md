@@ -212,3 +212,47 @@ def non_repeat_substring(str1):
   return max_length
 ```
 
+#### 1.7 *Longest substring with same letter after replacement (hard!!)
+
+Given a string with lowercase letters only, if you are allowed to **replace no more than ‘k’ letters** with any letter, find the **length of the longest substring having the same letters** after replacement.
+
+**Example 1:**
+
+```
+Input: String="aabccbb", k=2
+Output: 5
+Explanation: Replace the two 'c' with 'b' to have a longest repeating substring "bbbbb".
+```
+
+```python
+
+# 1. Iterate throught the string to add one letter at a time in the window
+# 2. Keep track of the count of the maximum repeating letter (max_repeating_letter) in the window, get the number of repeating
+#    letters by substracting max_repeating_letter from the len(sliding_window)
+# 3. shrink the window if the number of ramining letters is > k
+
+def length_of_longest_substring(str, k):
+  # TODO: Write your code here
+  window_start, max_repeating_letter, longest_substr = 0, 0, 0
+  strs_collection = {}
+
+  for window_end in range(len(str)):
+    right_char = str[window_end]
+    if right_char not in strs_collection:
+      strs_collection[right_char] = 0
+    strs_collection[right_char] += 1
+    # this is trick. keep track of the maximum repeating letter, can be the current char, or the previous one
+    max_repeating_letter = max(max_repeating_letter, strs_collection[right_char])
+
+    # shrink the window when the number of remaining letters is > k
+    if (window_end - window_start + 1 - max_repeating_letter) > k:
+      left_char = str[window_start]
+      strs_collection[left_char] -= 1
+      window_start += 1
+    
+    longest_substr = max(longest_substr, window_end - window_start + 1)
+
+  return longest_substr
+
+```
+
