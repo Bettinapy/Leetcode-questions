@@ -256,3 +256,94 @@ def length_of_longest_substring(str, k):
 
 ```
 
+#### 1.8 Longest subarray with ones after replacement (hard!) similar to 1.7
+
+Given an array containing 0s and 1s, if you are allowed to **replace no more than ‘k’ 0s with 1s**, find the length of the **longest contiguous subarray having all 1s**.
+
+**Example 1:**
+
+```
+Input: Array=[0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], k=2
+Output: 6
+Explanation: Replace the '0' at index 5 and 8 to have the longest contiguous subarray of 1s having length 6.
+```
+
+```python
+# 1. iterate through the array, keep track of the frequency of 1 (occur_1) in the sliding window
+# 2. get the remaining number of letters by substracting occur_1 from the len(sliding_window)
+# 3. if the remaining number is > k, then shrink my sliding window:
+#   1. decrement the frequency of 1
+#   2. take out the first element in the sliding window
+# 4. check if the current sliding window is the longest one
+
+def length_of_longest_substring(arr, k):
+  # TODO: Write your code here
+  frequency_1, window_start, longest_substr = 0, 0, 0
+
+  for window_end in range(len(arr)):
+    right_num = arr[window_end]
+    if right_num == 1:
+      frequency_1 += 1
+    
+    if (window_end - window_start + 1 - frequency_1) > k:
+      left_num = arr[window_start]
+      if left_num == 1:
+        frequency_1 -= 1
+      window_start += 1
+    
+    longest_substr = max(longest_substr, window_end - window_start + 1)
+
+  return longest_substr
+
+```
+
+#### 1.9 * Problem Challenge 1 (hard!!)
+
+Given a string and a pattern, find out if the **string contains any permutation of the pattern**.
+
+```python
+def find_permutation(str1, pattern): #oidbcaf, abc
+  window_start, matched = 0, 0
+  char_frequency = {}
+
+  for chr in pattern:
+    if chr not in char_frequency:
+      char_frequency[chr] = 0
+    char_frequency[chr] += 1 #{a:1, b:1, c:1}
+
+  # our goal is to match all the characters from the 'char_frequency' with the current window
+  # try to extend the range [window_start, window_end]
+  for window_end in range(len(str1)): #(0,7)
+    right_char = str1[window_end] # b
+    if right_char in char_frequency:
+      # decrement the frequency of matched character
+      char_frequency[right_char] -= 1
+      if char_frequency[right_char] == 0:
+        matched += 1 # 1 {a:1, b:0, c:1}
+
+    if matched == len(char_frequency):
+      return True
+
+    # this is tricky. shrink the window by one character as long as window_end is >= the length of pattern.
+    if window_end >= len(pattern) - 1:
+      left_char = str1[window_start]
+      window_start += 1
+      if left_char in char_frequency:
+        if char_frequency[left_char] == 0:
+          matched -= 1
+        char_frequency[left_char] += 1
+
+  return False
+
+
+def main():
+  print('Permutation exist: ' + str(find_permutation("oidbcaf", "abc")))
+  print('Permutation exist: ' + str(find_permutation("odicf", "dc")))
+  print('Permutation exist: ' + str(find_permutation("bcdxabcdy", "bcdyabcdx")))
+  print('Permutation exist: ' + str(find_permutation("aaacb", "abc")))
+
+
+main()
+
+```
+
