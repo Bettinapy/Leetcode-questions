@@ -347,3 +347,46 @@ main()
 
 ```
 
+
+
+### 2. Two Pointers
+
+Given an array of sorted numbers and a target sum, find a **pair in the array whose sum is equal to the given target**.
+
+Write a function to return the indices of the two numbers (i.e. the pair) such that they add up to the given target.
+
+**Example 1:**
+
+```
+Input: [1, 2, 3, 4, 6], target=6
+Output: [1, 3]
+Explanation: The numbers at index 1 and 3 add up to 6: 2+4=6
+```
+
+#### 2.1 Pair with Target Sum
+
+```python
+# 1. two pointer. one at the beginning, another at the end
+# 2. calculat the sum of two pointers, compare the sum with the target
+#   1. if sum < target_sum, increment the start pointer
+#   2. if sum > target_sum, decrement the end pointer
+#   3. if ==, return [start_pointer, end_pointer]
+# 3. compare while start < end
+
+def pair_with_targetsum(arr, target_sum):
+  # TODO: Write your code here
+  start_pointer, end_pointer = 0, len(arr) - 1
+  while start_pointer < end_pointer:
+    pair_sum = arr[start_pointer] + arr[end_pointer]
+    if pair_sum < target_sum:
+      start_pointer += 1
+    elif pair_sum > target_sum:
+      end_pointer -= 1
+    else:
+      return [start_pointer, end_pointer]
+
+  return [-1,-1]
+
+```
+
+####  
