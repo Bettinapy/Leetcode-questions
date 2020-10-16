@@ -465,3 +465,41 @@ def remove_element(arr, key):
 
 ```
 
+#### 1.3 Squaring a sorted array 
+
+Given a sorted array, create a new array containing **squares of all the number of the input array** in the sorted order.
+
+**Example 1:**
+
+```
+Input: [-2, -1, 0, 2, 3]
+Output: [0, 1, 4, 4, 9]
+```
+
+```python
+# 1. two pointers, one at the end left, one at the end right, compare their squares
+# 2. if left square < right square, add right square to the array, move right pointer to the previous number; else, opposite
+
+def make_squares(arr):
+  # TODO: Write your code here
+  arr_len = len(arr)
+  squares = [0 for i in range(arr_len)]
+  left_pointer, right_pointer = 0, arr_len - 1
+
+  highestSquareIdx = arr_len - 1
+
+  while left_pointer <= right_pointer: # '=' here to make sure that we compare ALL the numbers
+    left_square = arr[left_pointer] * arr[left_pointer]
+    right_square = arr[right_pointer] * arr[right_pointer]
+    if left_square < right_square:
+      squares[highestSquareIdx] = right_square
+      right_pointer -= 1
+    else:
+      squares[highestSquareIdx] = left_square
+      left_pointer += 1
+    highestSquareIdx -= 1
+
+  return squares
+
+```
+
