@@ -389,4 +389,79 @@ def pair_with_targetsum(arr, target_sum):
 
 ```
 
-####  
+HashTable:
+
+```python
+def pair_with_targetsum(arr, target_sum):
+  nums = {}  # to store numbers and their indices
+  for i, num in enumerate(arr):
+    if target_sum - num in nums:
+      return [nums[target_sum - num], i]
+    else:
+      nums[arr[i]] = i
+  return [-1, -1]
+
+
+def main():
+  print(pair_with_targetsum([1, 2, 3, 4, 6], 6))
+  print(pair_with_targetsum([2, 5, 9, 11], 11))
+
+
+main()
+
+```
+
+#### 2.2 *Remove Duplicates (easy) but hard to think
+
+Given an array of sorted numbers, **remove all duplicates** from it. You should **not use any extra space**; after removing the duplicates in-place return the length of the subarray that has no duplicate in it.
+
+**Example 1:**
+
+```
+Input: [2, 3, 3, 3, 6, 9, 9]
+Output: 4
+Explanation: The first four elements after removing the duplicates will be [2, 3, 6, 9].
+```
+
+```python
+# 1. Shift the element whenever we encounter duplicates. 
+# 2. One pointer to iterate the ele in the arr, one pointer for replacing the Next non-duplicate number
+
+def remove_duplicates(arr): #[2,3,3,3,6,9,9]
+  # index of the next non-duplicate element
+  next_non_duplicate = 1
+
+  i = 1
+  while(i < len(arr)):
+    if arr[next_non_duplicate - 1] != arr[i]: 
+      arr[next_non_duplicate] = arr[i] 
+      next_non_duplicate += 1 
+    i += 1 
+
+  return next_non_duplicate
+
+```
+
+**Problem 2:** Given an unsorted array of numbers and a target ‘key’, remove all instances of ‘key’ in-place and return the new length of the array.
+
+**Example 2:**
+
+```
+Input: [3, 2, 3, 6, 3, 10, 9, 3], Key=3
+Output: 4
+Explanation: The first four elements after removing every 'Key' will be [2, 6, 10, 9].
+```
+
+```python
+def remove_element(arr, key):
+  nextElement = 0  # index of the next element which is not 'key'
+  for i in range(len(arr)):
+    if arr[i] != key:
+      arr[nextElement] = arr[i]
+      nextElement += 1
+
+  return nextElement
+
+
+```
+
