@@ -503,3 +503,74 @@ def make_squares(arr):
 
 ```
 
+#### 1.4 Triple sum to zero (3 sum)
+
+```python
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # sort nums
+        nums.sort() #[-4,-1,-1,0,1,2]
+        result = []
+        # we need to find 3 numbers, so max i should be at the index of len(nums)-3
+        for i in range(len(nums)-2): # (0,5)
+            # while number is equal to its previous number, no need to find sum
+            # avoid duplicates
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            key1 = nums[i] # -1
+            sumKeys = -nums[i] # 1
+            lo = i+1
+            hi = len(nums) - 1 #5
+            while lo < hi: # 0 + 1 = 1
+                if nums[lo] + nums[hi] == sumKeys:
+                    result.append([nums[i], nums[lo], nums[hi]])
+                    while lo < hi and nums[lo] == nums[lo+1]:
+                        lo += 1 
+                    while lo < hi and nums[hi] == nums[hi-1]:
+                        hi -= 1
+                    lo += 1 
+                    hi -= 1 
+                elif nums[lo] + nums[hi] < sumKeys:
+                    lo += 1 
+                else:
+                    hi -=1                 
+
+        return result
+```
+
+#### 1.5 *Triplet Sum Close to Target (medium)
+
+```python
+import math
+
+
+def triplet_sum_close_to_target(arr, target_sum):
+  arr.sort()
+  smallest_difference = math.inf
+  for i in range(len(arr)-2):
+    left = i + 1
+    right = len(arr) - 1
+    while (left < right):
+      target_diff = target_sum - arr[i] - arr[left] - arr[right]
+      if target_diff == 0:  # we've found a triplet with an exact sum
+        return target_sum - target_diff  # return sum of all the numbers
+
+      # the second part of the following 'if' is to handle the smallest sum when we have more than one solution
+      if abs(target_diff) < abs(smallest_difference)or (abs(target_diff) == abs(smallest_difference) and target_diff > smallest_difference):
+        smallest_difference = target_diff  # save the closest and the biggest difference
+
+      if target_diff > 0:
+        left += 1  # we need a triplet with a bigger sum
+      else:
+        right -= 1  # we need a triplet with a smaller sum
+
+  return target_sum - smallest_difference
+```
+
+Time: O(N*logN + N^2)
+
+Space: O(N)  (sort)
