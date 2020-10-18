@@ -575,3 +575,126 @@ Time: O(N*logN + N^2)
 
 Space: O(N)  (sort)
 
+#### 1.6 Triplets with smaller sum
+
+Given an array `arr` of unsorted numbers and a target sum, **count all triplets** in it such that **`arr[i] + arr[j] + arr[k] < target`** where `i`, `j`, and `k` are three different indices. Write a function to return the count of such triplets.
+
+**Example 1:**
+
+```
+Input: [-1, 0, 2, 3], target=3 
+Output: 2
+Explanation: There are two triplets whose sum is less than the target: [-1, 0, 3], [-1, 0, 2]
+```
+
+```python
+# iterate through the arr, first number. skip duplicated number
+# two pointers, second and third number.  compare the sum of the three numbers with target. skip duplicated number
+
+def triplet_with_smaller_sum(arr, target):
+  arr.sort() # [-1,0,2,3], 3
+  count = 0
+  # TODO: Write your code 
+  for i in range(len(arr) - 2): #(0,1)
+    if i > 0 and arr[i - 1] == arr[i]:
+      continue
+    left = i + 1 # 1
+    right = len(arr) - 1 # 3
+
+    while left < right: # 1 < 3
+      three_sum = arr[i] + arr[left] + arr[right] # 
+      if three_sum < target:
+        while left < right and arr[right] == arr[right - 1]:
+          right -= 1
+        while left < right and arr[left] == arr[left + 1]:
+          left += 1
+        # since arr[right] >= arr[left], therefore, we can replace arr[right] by any number between
+        # left and right to get a sum less than the target sum
+        count += right - left
+        left += 1
+      else:
+        right -= 1
+  return count
+```
+
+Time complexity: (O(N*logN + N^2))
+
+Space: O(N)
+
+Similar problem:
+
+**Problem:** Write a function to return the list of all such triplets instead of the count. How will the time complexity change in this case?
+
+```python
+def triplet_with_smaller_sum(arr, target):
+  arr.sort()
+  triplets = []
+  for i in range(len(arr)-2):
+    search_pair(arr, target - arr[i], i, triplets)
+  return triplets
+
+
+def search_pair(arr, target_sum, first, triplets):
+  left = first + 1
+  right = len(arr) - 1
+  while (left < right):
+    if arr[left] + arr[right] < target_sum:  # found the triplet
+      # since arr[right] >= arr[left], therefore, we can replace arr[right] by any number between
+      # left and right to get a sum less than the target sum
+      for i in range(right, left, -1):
+        triplets.append([arr[first], arr[left], arr[i]])
+      left += 1
+    else:
+      right -= 1  # we need a pair with a smaller sum
+```
+
+Time: O(N*logN + N^3)
+
+Space: O(N)
+
+
+
+#### 1.7 Subarrays with Product Less than a Target (time complexity?)
+
+Given an array with positive numbers and a target number, find all of its contiguous subarrays whose **product is less than the target number**.
+
+**Example 1:**
+
+```
+Input: [2, 5, 3, 10], target=30 
+Output: [2], [5], [2, 5], [3], [5, 3], [10]
+Explanation: There are six contiguous subarrays whose product is less than the target.
+```
+
+hint: using sliding window and two pointers
+
+```python
+from collections import deque
+
+
+def find_subarrays(arr, target):
+  result = []
+  product = 1
+  left = 0
+  for right in range(len(arr)):
+    product *= arr[right]
+    while (product >= target and left < len(arr)):
+      product /= arr[left]
+      left += 1
+    # since the product of all numbers from left to right is less than the target therefore,
+    # all subarrays from left to right will have a product less than the target too; to avoid
+    # duplicates, we will start with a subarray containing only arr[right] and then extend it
+    # this is tricky: we use deque() to append element from right to left to avoid duplicates
+    temp_list = deque()
+    # we want to include left, so end should be left - 1
+    for i in range(right, left-1, -1):
+      temp_list.appendleft(arr[i])
+      # append the list because append will mutate the subarray
+      result.append(list(temp_list))
+  return result
+```
+
+Time: O(N^3)
+
+Space: O(N + N^2) N for temp list and N^2 for output list
+
