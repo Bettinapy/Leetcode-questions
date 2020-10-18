@@ -698,3 +698,45 @@ Time: O(N^3)
 
 Space: O(N + N^2) N for temp list and N^2 for output list
 
+
+
+#### 1.8 Dutch National Flag Problem
+
+Given an array containing 0s, 1s and 2s, sort the array in-place. You should treat numbers of the array as objects, hence, we can’t count 0s, 1s, and 2s to recreate the array.
+
+The flag of the Netherlands consists of three colors: red, white and blue; and since our input array also consists of three different numbers that is why it is called [Dutch National Flag problem](https://en.wikipedia.org/wiki/Dutch_national_flag_problem).
+
+**Example 1:**
+
+```
+Input: [1, 0, 2, 1, 0]
+Output: [0 0 1 1 2]
+```
+
+```python
+# 1. two pointers, low and high. 
+# 2. iterate throught the array, move all 0s < low, all 2s > high and all 1s between low and high
+def dutch_flag_sort(arr):
+  # TODO: Write your code here
+  low, high = 0, len(arr) - 1
+  
+  i = 0
+  while i <= high:
+    if arr[i] == 0:
+      arr[i], arr[low] = arr[low], arr[i]
+      # increment i and low, because arr[i] now might be 0,1
+      i += 1
+      low += 1
+    elif arr[i] == 1:
+      i += 1
+    else:
+      arr[i], arr[high] = arr[high], arr[i]
+      # only decrement high, because arr[i] now might be 0, 1, 2
+      high -= 1
+
+  return arr
+
+```
+
+
+
