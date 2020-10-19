@@ -841,6 +841,65 @@ def calculate_cycle_length(slow):
   return cycle_length
 ```
 
+Time: O(N)
+
+Space: O(1)
+
+#### 3.2 Start of LinkedList Cycle
+
+Given the head of a **Singly LinkedList** that contains a cycle, write a function to find the **starting node of the cycle**.
+
+```python
+# 1. find the length of the cycle, save it as N
+# 2. move one pointer n times. keep another pointer at the head. 
+# 3. move two pointers together, until they meet. return the node
+class Node:
+  def __init__(self, value, next=None):
+    self.value = value
+    self.next = next
+
+  def print_list(self):
+    temp = self
+    while temp is not None:
+      print(temp.value, end='')
+      temp = temp.next
+    print()
 
 
-#### 3.2 
+def find_cycle_start(head):
+  # TODO: Write your code here
+  slow, fast = head, head
+  cycle_length = 0
+
+  while fast is not None and fast.next is not None:
+    fast = fast.next.next
+    slow = slow.next
+    if slow == fast:
+      cycle_length = find_cycle_length(slow)
+      break
+  
+  current, previous = head, head
+  # move current pointer cycle_length times
+  for length in range(cycle_length):
+    current = current.next
+  
+  # increment both pointers until they meet at the start of the cycle
+  while current != previous:
+    current = current.next
+    previous = previous.next
+  return current
+
+def find_cycle_length(node):
+  current = node
+  cycle_length = 0
+  while True:
+    current = current.next
+    cycle_length += 1
+    if current == node:
+      break
+  return cycle_length
+```
+
+Time: O(N)
+
+Space: O(1)
