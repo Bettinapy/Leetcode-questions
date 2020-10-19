@@ -785,3 +785,30 @@ def search_pairs(arr, target_sum, first, second, quadruplets):
 Time: O(N*logN + N^3)
 
 Space: O(N)
+
+### 3. Pattern: Fast & Slow pointers
+
+#### 3.1 LinkedList Cycle
+
+Given the head of a **Singly LinkedList**, write a function to determine if the LinkedList has a **cycle** in it or not.
+
+```python
+# 1. two pointers. fast moves two steps, slow moves one step
+# 2. if fast and slow meet, there's a circle in the LinkedList. 
+# 3. if fast reaches to the end of the LinkedList, while slow is still behind, no circle
+class Node:
+  def __init__(self, value, next=None):
+    self.value = value
+    self.next = next
+
+
+def has_cycle(head):
+  slow, fast = head, head
+  while fast is not None and fast.next is not None:
+    fast = fast.next.next
+    slow = slow.next
+    if slow == fast:
+      return True  # found the cycle
+  return False
+```
+
