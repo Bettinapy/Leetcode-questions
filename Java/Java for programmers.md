@@ -1,4 +1,4 @@
-# AJava for programmers
+# Java for programmers
 
 ### Module 1: Basics of Java Programming
 
@@ -280,4 +280,123 @@ Encapsulation is a fundamental programming technique in OOP used to achieve data
 My understanding: declare the variables `private` and the methods which provide an interface to access those fields are public.
 
 
+
+#### 3. Inheritance
+
+- **SuperClass (Mother Class or Base Class):** This class allows the *re-use* of its `non-private` members in another class.
+- **SubClass (Child Class or Derived Class):** This class is the one that *inherits* from the superclass.
+
+##### 3.1. Super 
+
+the `super` keyword in Java is used to refer to the *SuperClass* members from inside the immediate *Subclass*.
+
+Use cases:
+
+- access parent class fields: `super.fuelCap`
+- call a parent class method: `super.display()`
+- using with constructors: `super(parameters)`
+
+##### 3.2. Advantages of using inheritance
+
+- Re-usability: avoid redundant coding and save time and effort
+- Avoid duplication of code
+- Extensibility
+- Data hiding: The base class can decide to keep some data private so that it cannot be altered by the derived class.
+
+#### 4. Polymorphism
+
+##### 4.1. Intro
+
+Different subclasses inherit from the same superclass. In all of the subclasses, all methods inherited from the superclass can be reimplemented in their own way. 
+
+##### 4.2. Method overriding
+
+Advantages:
+
+- The derived classes can give their own specific implementations to inherited methods without modifying the parent class methods.
+- For any method, a child class can use the implementation in the parent class or make its own implementation.
+
+##### 4.3. Method overloading and overriding
+
+| **Method Overloading**                                       | **Method Overriding**                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Overloading happens at **compile time.**                     | Overriding happens at **runtime**                            |
+| Gives better performance because the binding is being done at compile time. | Gives less performance because the binding is being done at run time. |
+| **Private** and **final** methods can be overloaded.         | **Private** and **final** methods can not be overridden.     |
+| Return type of method does not matter in case of method overloading. | Return type of method must be the same in the case of overriding. |
+| Arguments must be different in the case of overloading.      | Arguments must be the same in the case of overriding.        |
+| It is being done in the same class.                          | Base and derived classes are required here.                  |
+| Mostly used to increase the readability of the code.         | Mostly used to provide the implementation of the method that is already provided by its base class. |
+
+##### 4.4 Dynamic polymorphism
+
+**Dynamic polymorphism** is the mechanism by which methods can be defined with the same name, return type, and parameters in the base class and derived classes.
+
+This is decided during runtime and is, therefore, called **dynamic** or **runtime** polymorphism.
+
+##### 4.5. Static and Dynamic Polymorphism
+
+- **Static polymorphism** is also known as compile time polymorphism.
+- **Dynamic polymorphism** is also known as runtime polymorphism.
+
+| **Static Polymorphism**                                      | **Dynamic Polymorphism**                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Polymorphism that is resolved during compile time is known as static polymorphism. | Polymorphism that is resolved during run time is known as dynamic polymorphism. |
+| Method overloading is used in static polymorphism.           | Method overriding is used in dynamic polymorphism.           |
+
+#### 5. Abstract Classes and Interfaces
+
+**Abstraction** in Object-Oriented Programming refers to showing only the essential features of an object to the user and hiding the inner details to reduce complexity. 
+
+What ? (yes) How? (no)
+
+##### 5.1. Abstract classes and methods
+
+A method with the keyword `abstract` in its declaration is known as an **abstract method**.
+
+###### 5.1.1 Abstract Methods
+
+Rules: 
+
+- In contrast to a concrete/normal Java method an **abstract method** does not have a body/definition i.e. it only has a declaration or method signature inside an *abstract class or an interface* (more on these later).
+- An **abstract method** can be declared inside an *abstract class* or an *interface* only.
+- In other words, it can be said that to contain any **abstract method** in its implementation a class has to be declared as an *abstract class* because *non-abstract classes* **cannot** have abstract methods.
+- An *abstract method* **cannot** be declared *private* as it has to be implemented in some other class.
+
+###### 5.1.2 Abstract Classes
+
+Rules:
+
+- An abstract class ***cannot*** be instantiated i.e. one cannot create an object of an *abstract class*.
+- An *abstract class* can have the declaration of *abstract method(s)* (as an abstract method’s body cannot be implemented in an abstract class) but it is not compulsory to have any.
+- Non-abstract/normal methods can be implemented in an **abstract class**.
+- To use an *abstract class* it needs to be **inherited from**.
+- The class which *inherits* from the *abstract class* **must** implement all the *abstract methods* declared in the *parent abstract class*.
+- An abstract class can have everything else as same as a normal Java class has i.e. constructor, `static` variables and methods.
+
+##### 5.2 Interfaces
+
+An interface is just like a `class` and specifies the behavior that a class **must** *implement*.
+
+Rules:
+
+- An interface can have:
+  - `abstract` method(s)
+  - `default` method(s)
+  - `static` method(s)
+  - `public static final` variable(s)
+- All the methods declared or implemented in an interface are by default `public` and all the variables are by default `public static final`.
+- Just like an `abstract` class, an `interface` cannot be instantiated.
+- To use an interface, a class **must** `implement` all of the `abstract` method(s) declared in it.
+- An interface **cannot** have constructor(s) in it.
+- A class cannot extend from more than one class, but it can implement **any number** of interfaces.”?
+- An interface can `extend` from another interface.
+- An interface cannot be declared `private` or `protected`.
+
+Advantages:
+
+- Interfaces allow us to achieve *100% abstraction*.
+- Interfaces can be used to achieve *loose coupling* in an application. This means that a change in one class doesn’t affect the implementation of the other class.
+- By the use of interfaces, one can break up complex designs and clear the dependencies between objects.
+- Interfaces can be used to achieve *multiple inheritance*
 
