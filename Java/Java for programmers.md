@@ -400,3 +400,39 @@ Advantages:
 - By the use of interfaces, one can break up complex designs and clear the dependencies between objects.
 - Interfaces can be used to achieve *multiple inheritance*
 
+##### 5.3 Default methods and static methods
+
+The static methods in interfaces are similar to default methods but the only difference is that you can’t override them.
+
+##### 5.4 Functional Interface
+
+Any interface that has only one abstract method can be annotated with the `@FunctionalInterface` annotation.
+
+##### 5.5 Interface vs Abstract class
+
+| **Interfaces**                            | **Abstract Classes**                                  |
+| ----------------------------------------- | ----------------------------------------------------- |
+| Can have abstract method(s) only.         | Can have concrete (non-abstract) & abstract method(s) |
+| Support multiple inheritance              | Don’t support multiple inheritance                    |
+| All members are `public`                  | Can have `private`, `protected` and `public` members  |
+| All data members are `static` and `final` | Can have non-static and non-final members too         |
+| Can’t have constructors                   | Constructors can be defined                           |
+
+#### 6. Aggregaion and Composition
+
+- Is A
+- Part of: one class object is a **component** of another class. `e.g. Composition`
+- Has A: one class contains a reference to another class' object `e.g. Aggregation`
+
+##### 6.1 Aggregation
+
+In **aggregation**, the lifetime of the owned object does not depend on the lifetime of the owner.
+
+My understanding: A person object has a reference to a country object. The person object can be deleted, but the Country object is still there
+
+##### 6.2 Composition
+
+In **composition**, the lifetime of the owned object depends on the lifetime of the owner.
+
+My understanding: A car is composed of engine, tire, door. If a delete the car object, engine, tire and door will be deleted as well.
+
