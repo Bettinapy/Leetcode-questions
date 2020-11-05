@@ -178,3 +178,106 @@ class ForEachExample {
 
 
 ### Module 2: Object Oriented Programming
+
+#### 1. Classes and Objects
+
+##### 1.1 Intro
+
+**Classes** are the building blocks of programs built using the object-oriented methodology. Such programs consist of *independent self-managing modules and their interactions.*
+
+The concept of classes allows us to create complex objects and applications in Java. This is why classes are the basic building blocks behind all of the OOP’s principles.
+
+An **object** is an instance of a module, and a class is its definition.
+
+##### 1.2 Access Modifiers
+
+```java
+Access Levels
+Modifier        Class    Package    Subclass    World
+-----------------------------------------------------
+public           Y        Y          Y           Y
+protected        Y        Y          Y           N
+(Default)        Y        Y          N           N
+private          Y        N          N           N
+```
+
+##### 1.3 Fields
+
+- Static: resides in a class. All the objects we create will share this field and its value. `e.g. static int number`
+- Non-static: resides in the instances of a class. `e.g. int number`
+- Final: cannot have its value changed once it is assigned. `e.g. final int number = 4`
+
+##### 1.4 Methods
+
+Advantages of method overloading: 
+
+- save method name, save memory
+- increase execution speed
+- make code cleaner and readable
+- allow the implementation of polymorphism
+
+##### 1.5 Constructor
+
+The constructor is used to *construct* the object of a class. A constructor’s **name** must be exactly the **same** as the name of its class.
+
+```java
+class Date {
+
+  private int day;
+  private int month;
+  private int year;
+  private String event;
+
+
+  // Default constructor
+  public Date() {
+    // We must define the default values for day, month, and year
+    this.day = 0;
+    this.month = 0;
+    this.year = 0;
+  }
+
+  // Parameterized constructor
+  public Date(int day, int month, int year){
+    // The arguments are used as values
+    this.day = day;
+    this.month = month;
+    this.year = year;
+  }
+  
+  // Parameterized constructor
+  public Date(int day, int month, int year, String event){
+    this(day, month, year); // calling the constructor
+    this.event = event;
+  }
+
+  // A simple print function
+  public void printDate(){ 
+    System.out.println("Date: " + day + "/" + month + "/" + year + "  --> " + event);
+  }
+  
+}
+
+class Demo {
+  
+  public static void main(String args[]) {
+    // Call the Date constructor to create its object;
+    Date date = new Date(1, 1, 2019, "New Year"); // Object created with specified values! // Object created with default values!
+    date.printDate();
+  }
+  
+}
+```
+
+#### 2. Data hiding
+
+##### 2.1 Encapsulation
+
+Encapsulation is a fundamental programming technique in OOP used to achieve data hiding.
+
+**Encapsulation** in OOP refers to binding the **data** and the **methods to manipulate that data** together in a single **unit** (class).
+
+My understanding: declare the variables `private` and the methods which provide an interface to access those fields are public.
+
+
+
