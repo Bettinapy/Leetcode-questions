@@ -436,3 +436,47 @@ In **composition**, the lifetime of the owned object depends on the lifetime of 
 
 My understanding: A car is composed of engine, tire, door. If a delete the car object, engine, tire and door will be deleted as well.
 
+
+
+### Module 3 Lambdas and Stream APIs
+
+#### 1. Taste of lambdas
+
+A **lambda expression** is just an anonymous function, i.e., a function with no name and that is not bound to an identifier. We can pass it to other methods as parameters, therefore, using the power of functional programming in Java.
+
+```java
+@FunctionalInterface
+public interface Greeting {
+    void greet();
+}
+
+public class WellWisher {
+
+    public static void wish(Greeting greeting) {
+        greeting.greet();
+    }
+
+    // Passing a lambda expression to wish method.
+    public static void main(String args[]) {
+        wish( () -> System.out.println("Namaste") );
+    }
+}
+```
+
+##### 1.1 Java Comparator Using Lambda
+
+```java
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class PersonService {
+
+    public static List<Person> getPersons(List<Person> persons) {
+        // Instead of creating an anonymous class, we have provided a lambda expression.
+        Collections.sort(persons, (p1, p2) -> p1.getName().compareTo(p2.getName()));
+        return persons;
+    }
+}
+```
+
