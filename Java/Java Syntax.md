@@ -74,3 +74,65 @@ public class Solution {
 
 ```
 
+### 6. Static vs. Non-static
+
+- static variables/methods are called on Class
+- non-static variables/methods are called on the instance of the class
+
+### 7. Comparison
+
+| Code | Explanation                                                  |                                                              |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1    | `int a = 5; int b = 5; System.out.println(a == b);`          | Compare primitive types. **true** will be displayed on the screen. |
+| 2    | `Cat cat1 = new Cat("Oscar"); Cat cat2 = cat1; System.out.println(cat1 == cat2);` | Compare references. **true** will be displayed on the screen. Both variables store references to the same object. |
+| 3    | `String s = new String("Mom"); String s2 = s; System.out.println(s == s2);` | Compare references. **true** will be displayed on the screen. Both variables store references to the same object. |
+| 4    | `Cat cat1 = new Cat("Oscar"); Cat cat2 = new Cat("Oscar"); System.out.println(cat1 == cat2);` | Compare references. **false** will be displayed on the screen. The two variables reference identical Cat objects, but not the same one. |
+| 5    | `String s = new String("Mom"); String s2 = new String("Mom"); System.out.println(s == s2);` | Compare references. **false** will be displayed on the screen. The two variables reference identical String objects, but not the same one. |
+| 6    | `Cat cat1 = new Cat("Oscar"); Cat cat2 = new Cat("Oscar"); System.out.println(cat1.equals(cat2));` | Compare objects. **true** will be displayed on the screen. The two variables reference identical Cat objects |
+| 7    | `String s = new String("Mom"); String s2 = new String("Mom"); System.out.println(s.equals(s2));` | Compare objects. **true** will be displayed on the screen. The two variables reference identical String objects |
+
+### 8. Bubble sort
+
+```java
+package com.codegym.task.task04.task0420;
+
+/* 
+Sorting three numbers
+
+*/
+
+import java.io.*;
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        //write your code here
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n1 = Integer.parseInt(reader.readLine());
+        int n2 = Integer.parseInt(reader.readLine());
+        int n3 = Integer.parseInt(reader.readLine());
+        
+        int[] numbers = {n1,n2,n3};
+        boolean sorted = false;
+        
+        while (!sorted){
+            sorted = true;
+            for(int i = 0; i <= 1; i++){
+                if(numbers[i] < numbers[i+1]){
+                    int temp = numbers[i];
+                    numbers[i] = numbers[i+1];
+                    numbers[i+1] = temp;
+                    sorted = false;
+                }
+            }
+        }
+        
+        for(int i = 0; i <= 2; i++){
+            System.out.print(numbers[i] + " ");
+        }
+        
+    }
+}
+
+```
+
