@@ -406,6 +406,7 @@ public class Solution {
         while(iterator.hasNext()){
           // iterator.next() starts from 1;
             if(iterator.next() > 10){
+              // no need to pass in any paramter
                 iterator.remove();
             }
         }
@@ -438,5 +439,132 @@ Set of key-value pairs. Unique key.
 | Clear the Map                                | clear()              |
 | Remove the value for the specified key       | remove(key)          |
 
- 
+### 15. Array
+
+#### 15.1 length() vs. length
+
+**array.length :** length is a final variable applicable for[ arrays](https://www.geeksforgeeks.org/arrays-in-java/). With the help of length variable, we can obtain the size of the array.
+**string.length() :** length() method is a final variable which is applicable for string objects. length() method returns the number of characters presents in the string.
+
+```java
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+
+        //write your code here
+        String output = "";
+       // split string by space
+        String[] splitted = s.split("\\s+");
+        for(int i = 0; i < splitted.length; i++){
+            String word = splitted[i];
+            String upperWord = word.substring(0,1).toUpperCase() + word.substring(1);
+            splitted[i] = upperWord;
+          	// concatenate string by space
+            output = String.join(" ", splitted);
+        }
+        System.out.println(output);
+    }
+}
+```
+
+### 16. Date
+
+Use calendar 
+
+```java
+package com.codegym.task.task08.task0827;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.*;
+
+/* 
+Working with dates
+
+*/
+
+public class Solution {
+    public static void main(String[] args) throws ParseException{
+        System.out.println(isDateOdd("MAY 1 2013"));
+    }
+
+    public static boolean isDateOdd(String date) throws ParseException{
+
+				// create calendar instance from string
+        Calendar checkCal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("MMMM dd yyyy", Locale.ENGLISH);
+        checkCal.setTime(df.parse(date));
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, checkCal.get(Calendar.YEAR));
+        cal.set(Calendar.DAY_OF_YEAR, 1);
+				// calculat the date difference between two calendar objects
+        long daysBetween = ChronoUnit.DAYS.between(checkCal.toInstant(), cal.toInstant());
+        System.out.println(daysBetween);
+        return (daysBetween % 2 != 0);
+        
+    }
+}
+
+```
+
+### 17. Stack 
+
+#### 17.1. Intro
+
+LIFO
+
+- **StackTraceElement**: The Java Machine keeps track of all function calls. For that, it has a special collection – the stack. When one function calls another, the Java Machine puts a new StackTraceElement object onto the stack. When a function finishes, that element is removed from the stack. This means that the stack always stores up-to-date information about the current state of the 'stack of function calls'
+
+  Each StackTraceElement object contains information about the called method. In particular, you can get the method name using the **getMethodName** method.
+
+```java
+public class ExceptionExample
+{
+  public static void main(String[] args)
+  {
+    method1();
+  }
+
+  public static void method1()
+  {
+    method2();
+  }
+
+  public static void method2()
+  {
+    method3();
+  }
+
+  public static void method3()
+  {
+     StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+    for (StackTraceElement element : stackTraceElements)
+    {
+       System.out.println(element.getMethodName());
+    }
+  }
+}
+```
+
+### 18. Exception
+
+What happens when an error occurs?
+
+1. When an error occurs, the Java Machine creates a special object – an exception – where it saves all the error information. There are different exceptions for different errors.
+
+2. An exception causes the program to immediately exit the current function, and the next function, and so on – until it exits the main method. Then the program terminates. Programmers may also say that the Java Machine 'unwinds the call stack'."
+
+We can use `try-catch` to catch the exception without terminating the program.
+
+#### 18.1. Checked and Unchecked Exceptions
+
+- checked exceptions: exceptions that are checked at compile time. `e.g. read file, if file does not exist, a FileNotFoundException will be returned (IOException) at compile time`
+  - we can handle checked exceptions by **throw** and **try-catch**
+- unchecked exceptions: exceptions are not checked at run time. `e.g. ArithmeticException. even though we have it, we can still compile it. but the errors will be returned at run time.`
+  - we often handle unchecked exceptions by **try-catch**
 
