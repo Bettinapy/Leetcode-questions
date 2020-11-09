@@ -76,8 +76,106 @@ public class Solution {
 
 ### 6. Static vs. Non-static
 
+#### 6.1. Static & non- static variables/methods 
+
 - static variables/methods are called on Class
 - non-static variables/methods are called on the instance of the class
+
+** Static methods can't address non-static methods or non-static variables! When you call a static method, you are actually passing null as the argument, so the static methods don't have access to the object and its non-static variables.
+
+#### 6.2. Static & non-static classes
+
+Special: difference between static and non-static nested classes:
+
+1. A static nested class may be instantiated without instantiating its outer class. `e.g. OuterClass.StaticClass staticClass = new OuterClass.StaticClass() `
+2. Inner classes can access both static and non-static members of the outer class. A static class can access only the static members of the outer class.
+
+** The main purpose of using the **static** modifier in the class declaration is to control the relationship between the **Cat** and **StaticClassExample** classes. The idea is roughly this: the Cat class is not linked to StaticClassExample objects and can't access the instance (non-static) variables of the StaticClassExample class.
+
+```java
+package com.codegym.task.task06.task0614;
+
+import java.util.ArrayList;
+
+/* 
+Static cats
+
+*/
+
+public class Cat {
+    //write your code here
+    public static ArrayList<Cat> cats = new ArrayList<Cat>();
+
+    public Cat() {
+        //System.out.println(Cat.cats);
+    }
+
+    public static void main(String[] args) {
+        //write your code here
+        for(int i = 1; i<= 10; i++){
+            Cat cat = new Cat();
+            cats.add(cat);
+        }
+        printCats();
+    }
+
+    public static void printCats() {
+        //write your code here
+        for(int counter = 0; counter < Cat.cats.size(); counter++){
+            System.out.println(Cat.cats.get(counter));
+        }
+    }
+}
+
+```
+
+##### 6.2.1 Minimum number of statics (hard) -- understand static 
+
+```java
+package com.codegym.task.task06.task0616;
+
+/* 
+Minimum number of statics
+
+*/
+
+public class Solution {
+    // we need to make step STATIC because on line 21, we create a new Solution instance,
+    // then we call method3, then method4, if step is not static, every time step will be reset to task0616
+    // and step will never be greater than 1, causing the infinite loop
+    // if we make step static, we can increment step every time we create a new Solution instance
+    
+    public static int step;
+
+    public static void main(String[] args) {
+        method1();
+    }
+
+    public static void method1() {
+        method2();
+    }
+
+    public static void method2() {
+        new Solution().method3();
+    }
+
+    public void method3() {
+        method4();
+    }
+
+    public void method4() {
+        step++;
+        for (StackTraceElement element : Thread.currentThread().getStackTrace())
+            System.out.println(element);
+        if (step > 1)
+            return;
+        main(null);
+    }
+}
+
+```
+
+
 
 ### 7. Comparison
 
@@ -135,4 +233,210 @@ public class Solution {
 }
 
 ```
+
+### 9. Classes
+
+**OOP**: The programming philosophy that calls for a program to be divided into objects is called object-oriented programming (OOP). Java is a classic example of an OOP language: in Java, everything is an object.
+
+### 10. Packages
+
+Always create classes under packages! When you don't have many classes, this isn't a problem, but when there are many, it's easy to mix them up. Always create classes inside packages.
+
+### 11. Object visibility and null references
+
+```java
+Cat cat1 = new Cat("Tommy");
+cat1 = null;
+```
+
+The object exists as long as at least one variable is storing its address.
+
+"Tommy" exists for one line, on line 2, Tommy is collected by 'garbage collection' performed by JVM.
+
+The garbage collector is an internal Java mechanism responsible for freeing up memory, i.e. removing unnecessary objects from memory.
+
+### 12. Finalize
+
+**Finalize method**: The Java Virtual Machine calls the **finalize**() method before destroying an object. The method is used to deallocate system resources or perform other cleanup tasks. In fact, this method is the exact opposite of a constructor in Java.
+
+### 13. ArrayList
+
+#### 13.1 Why we use ArrayList?
+
+- ArrayList supports several additional operations that programmers have to perform all the time. An oridinary array cannot insert/ delete elements from the middle of an array, but ArrayList can.
+- ArrayList is able to change the size of the array
+
+#### 13.2 Generics
+
+Generics are types that have a parameter. When we declare a generic variable, we indicate two types instead of one: the variable type and the type of the data it stores.
+
+e.g. `ArrayList<String> list = new ArrayList<String>();`
+
+### 14. Collection (Important!)
+
+#### 14.1. Intro
+
+**Collection** is a class whose main purpose if to store a collection of other elements.
+
+Three main groups of collection:
+
+- Set: no order
+- List: ordered. index
+- Map: key value pair. key is unique
+
+https://codegym.cc/quests/lectures/questsyntax.level08.lecture02
+
+#### 14.2 Iterator
+
+Java uses iterator to iterate throught all elements in the collection.
+
+Shorthand version of iterator: for-each statement
+
+```java
+public static void main(String[] args)
+{
+    Set<String> set = new HashSet<String>();
+    set.add("Rain");
+    set.add("In");
+    set.add("Spain");
+
+    for (String text : set)
+    {
+        System.out.println(text);
+    }
+}
+```
+
+```java
+package com.codegym.task.task08.task0802;
+
+/* 
+HashMap of 10 pairs
+
+*/
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        //write your code here
+        HashMap<String, String> strings = new HashMap<String, String>();
+        strings.put("watermelon", "melon");
+        strings.put("banana", "fruit");
+        strings.put("cherry", "fruit");
+        strings.put("pear", "fruit");
+        strings.put("cantaloupe", "melon");
+        strings.put("blackberry", "fruit");
+        strings.put("ginseng", "root");
+        strings.put("strawberry", "fruit");
+        strings.put("iris", "flower");
+        strings.put("potato", "tuber");
+    
+        
+        for(Map.Entry<String, String> pair: strings.entrySet()){
+            String pairKey = pair.getKey();
+            String pairVal = pair.getValue();
+            System.out.println(pairKey + " - " + pairVal);
+        }
+
+    }
+}
+
+```
+
+#### 14.3. List
+
+##### 14.3.1 LinkedList and ArrayList
+
+|                 Description                  |   Operation   | ArrayList | LinkedList |
+| :------------------------------------------: | :-----------: | :-------: | :--------: |
+|                Get an element                |      get      |   Fast    |    Slow    |
+|                Set an element                |      set      |   Fast    |    Slow    |
+|   Add an element (to the end of the list)    |      add      |   Fast    |    Fast    |
+| Insert an element (at an arbitrary position) | add(i, value) |   Slow    |    Fast    |
+|              Remove an element               |    remove     |   Slow    |    Fast    |
+
+if you are going to frequently insert (or remove) elements in the middle of the collection, it's better to use **LinkedList**. In all other cases, **ArrayList** works better.
+
+##### 14.3.2 Get() method
+
+List.get() will return an Integer object, not a primitive int.
+
+So if you'd like to compare two Integer objects, using **equals()**: `list.get(i).equals(list.get(i+1))`
+
+#### 14.4. Set
+
+Group of unordered objects. Unique.
+
+| Operation                            | Method                    |
+| ------------------------------------ | ------------------------- |
+| Add element(s)                       | add(), addAll()           |
+| Remove element(s)                    | remove(), removeAll()     |
+| Check for the presence of element(s) | contains(), containsAll() |
+
+##### 14.4.1 Remove() in set
+
+A `Set` has no concept of an index of an element. The elements have no order in the set. Moreover, you should use an `Iterator` when iterating to avoid a [`ConcurrentModificationException`](http://docs.oracle.com/javase/7/docs/api/java/util/ConcurrentModificationException.html) when removing an element from a collection *while* looping over it
+
+```java
+package com.codegym.task.task08.task0814;
+
+import java.util.HashSet;
+import java.util.*;
+
+/* 
+Greater than 10? You're not a good fit for us
+
+*/
+
+public class Solution {
+    public static HashSet<Integer> createSet() {
+        // write your code here
+        HashSet<Integer> numbers = new HashSet<Integer>();
+        for(int i = 1; i <= 20; i++){
+            numbers.add(i);
+        }
+        return numbers;
+    }
+
+    public static HashSet<Integer> removeAllNumbersGreaterThan10(HashSet<Integer> set) {
+        // write your code here
+        Iterator<Integer> iterator = set.iterator();
+        while(iterator.hasNext()){
+          // iterator.next() starts from 1;
+            if(iterator.next() > 10){
+                iterator.remove();
+            }
+        }
+        return set;
+    }
+
+    public static void main(String[] args) {
+       
+    }
+}
+
+```
+
+
+
+#### 14.5. Map
+
+Set of key-value pairs. Unique key.
+
+| Operation                                    | Method               |
+| -------------------------------------------- | -------------------- |
+| Get a set of all pairs                       | entrySet()           |
+| Get a set of all keys                        | keySet()             |
+| Get a set of all values                      | values()             |
+| Add a pair                                   | put(key, value)      |
+| Get the value for the specified key          | get(key)             |
+| Check whether the specified key is present   | containsKey(key)     |
+| Check whether the specified value is present | containsValue(value) |
+| Check whether the Map is empty               | isEmpty()            |
+| Clear the Map                                | clear()              |
+| Remove the value for the specified key       | remove(key)          |
+
+ 
 
