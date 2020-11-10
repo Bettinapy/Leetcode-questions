@@ -93,11 +93,38 @@ a == b // => compare references, so we normally use "==" to compare primitives a
 a.equals(b) // check the equality of two objects
 ```
 
+#### 1.11. Multithreading
 
+*Concurrency* is the ability to run several programs or several parts of a program in parallel.
+
+Multithreading is a Java feature that allows concurrent execution of two or more parts of a program for maximum utilization of CPU. Each part of such program is called a thread. So, threads are light-weight processes within a process.
+
+Threads can be created by using two mechanisms :
+
+1. Extending the Thread class
+2. Implementing the Runnable Interface
+
+**Thread Class vs Runnable Interface**
+
+1. If we extend the Thread class, our class cannot extend any other class because Java doesn’t support multiple inheritance. But, if we implement the Runnable interface, our class can still extend other base classes.
+
+2. We can achieve basic functionality of a thread by extending Thread class because it provides some inbuilt methods like yield(), interrupt() etc. that are not available in Runnable interface.
 
 ## 2. OOP
 
-### 2.1. Abstract classes and Interfaces
+As the name suggests, Object-Oriented Programming or OOPs refers to languages that uses objects in programming. Object-oriented programming aims to implement real-world entities like inheritance, hiding, polymorphism etc in programming. The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
+
+There are FOUR main concepts of OOP in Java: abstraction, encapsulation, inheritance and polymorphism
+
+### 2.1. Abstraction: Abstract classes and Interfaces
+
+Data Abstraction is the property by virtue of which only the essential details are displayed to the user.The trivial or the non-essentials units are not displayed to the user. Ex: A car is viewed as a car rather than its individual components.
+
+Data Abstraction may also be defined as the process of identifying only the required characteristics of an object ignoring the irrelevant details. The properties and behaviours of an object differentiate it from other objects of similar type and also help in classifying/grouping the objects.
+
+Consider a real-life example of a man driving a car. The man only knows that pressing the accelerators will increase the speed of car or applying brakes will stop the car but he does not know about how on pressing the accelerator the speed is actually increasing, he does not know about the inner mechanism of the car or the implementation of accelerator, brakes etc in the car. This is what abstraction is.
+
+In java, abstraction is achieved by [interfaces](https://www.geeksforgeeks.org/interfaces-in-java/) and [abstract classes](https://www.geeksforgeeks.org/abstract-classes-in-java/). We can achieve 100% abstraction using interfaces.
 
 ![Abstract Class and Interfaces](Abstract%20Class%20and%20Interfaces.png)
 
@@ -183,6 +210,72 @@ In this process, an overridden method is called through the reference variable o
 
 Multiple inheritance: one class extends from multiple classes. It is NOT SUPPORTED in Java.
 
+### 2.6. Encapsulation
+
+Encapsulation in Java is a mechanism of wrapping the data (variables) and code acting on the data (methods) together as a single unit. In encapsulation, the variables of a class will be hidden from other classes, and can be accessed only through the methods of their current class. Therefore, it is also known as **data hiding**.
+
+To achieve encapsulation in Java −
+
+- Declare the variables of a class as private.
+
+- Provide public setter and getter methods to modify and view the variables values.
+
+- ```java
+  /* File name : EncapTest.java */
+  public class EncapTest {
+     private String name;
+     private String idNum;
+     private int age;
+  
+     public int getAge() {
+        return age;
+     }
+  
+     public String getName() {
+        return name;
+     }
+  
+     public String getIdNum() {
+        return idNum;
+     }
+  
+     public void setAge( int newAge) {
+        age = newAge;
+     }
+  
+     public void setName(String newName) {
+        name = newName;
+     }
+  
+     public void setIdNum( String newId) {
+        idNum = newId;
+     }
+  }
+  ```
+
+
+
+#### 2.7. Private, Public, Protected, Default
+
+You must have seen public, private and protected keywords while practising java programs, these are called access modifiers. An access modifier restricts the access of a class, constructor, data member and method in another class. 
+
+```
+-----------+-------+---------+--------------+--------------+--------
+            | Class | Package | Subclass     | Subclass     |Outside|
+            |       |         |(same package)|(diff package)|Class  |
+————————————+———————+—————————+——————————----+—————————----—+————————
+public      | Yes   |  Yes    |    Yes       |    Yes       |   Yes |    
+————————————+———————+—————————+—————————----—+—————————----—+————————
+protected   | Yes   |  Yes    |    Yes       |    Yes       |   No  |    
+————————————+———————+—————————+————————----——+————————----——+————————
+default     | Yes   |  Yes    |    Yes       |    No        |   No  |
+————————————+———————+—————————+————————----——+————————----——+————————
+private     | Yes   |  No     |    No        |    No        |   No  |
+------------+-------+---------+--------------+--------------+--------
+```
+
+
+
 ## 3. Servlets
 
 ### 3.1. What is Servlet?
@@ -200,7 +293,7 @@ Multiple inheritance: one class extends from multiple classes. It is NOT SUPPORT
 
 - Session is a conversational state between client and server and it can consists of multiple request and response between client and server
 
-- Since HTTP and Web Server both are stateless, the only way to maintain a session is when some unique information aobut the session(session id) is passed between server and client in everyrequest and response.
+- Since HTTP and Web Server both are stateless, the only way to maintain a session is when some unique information aobut the session(session id) is passed between server and client in every request and response.
 
   ![session management](session%20management.png)
 
