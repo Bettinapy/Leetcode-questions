@@ -226,5 +226,72 @@ Cookies are text data sent by the server to the client and they are saved at the
 
 - Servlet Cookie API: javax.servlet.http.Cookie `e.g. getCookies(); addCookie(Cookie c)` 
 
-## 4. JDBC 
+## 4. JDBC - Java Database Connectivity
 
+### 4.1. JDBC Driver
+
+JDBC Driver is a software compoennt that enables java applications to interact with the database. It uses JDBC API.
+
+
+
+### 4.2. What are the steps to connect to the database in java?
+
+1. Registering the driver
+2. Creating connection
+3. Creating statement
+4. Executing queries
+5. Closing connection
+
+![steps to connect to database](steps%20to%20connect%20to%20database.png)
+
+### 4.3. What is the difference between execute, executeQuery , executeUpdate?
+
+![executeQuery executeUpdate execute](executeQuery%20executeUpdate%20execute.png)
+
+## 5. Spring
+
+### 5.1. Spring
+
+- Spring is the most popular application development framework for enterprise Java.
+- The framework's core features can be used by any Java application, but there are extensions for applications on top of the Java EE platform.
+- Spring is essentially a lightweight, integrated framework that can be used for developing enterprise applications in Java
+
+### 5.2. What is BEAN?
+
+A bean is an object that is instantiated, assembled and managed by a Spring IoC container.
+
+5 scopes:
+
+1. Singleton: single object, by default
+2. Prototype: eveyrtime a new object
+3. Request: one object for all request
+4. Session: one object for session
+5. Global session: one object for global-session
+
+### 5.3. How to add BEAN to a Spring application?
+
+![how to add bean ](how%20to%20add%20bean%20.png)
+
+Then add property as key value pair under each bean.
+
+### 5.4. Difference between constructor injection and setter injection?
+
+Example: If we create a new address object in the constructor of employee class. We need to create a new address object everytime we create a new employee class. This is HIGH COUPLING, we need it to be LOW COUPLING, so we can take out the address object from the constructor and create a setter method to set the address variable by passing an address object 
+
+![setter and constructor injection](setter%20and%20constructor%20injection.png)
+
+## 6. Hibernate
+
+### 6.1. What is Hibernate?
+
+It is a **java framework** which is used to develop persistence logic. Persistence logic means to store and process the data for long use. 
+
+More precisely Hibernate is an open-source, non-invasive, light-weight java ORM(Object-relational mapping) framework to develop objects which are independent of the database software and make independent persistence logic in all JAVA, JEE.
+
+### 6.2. What are the advantages of Hibernate over JDBC?
+
+https://www.geeksforgeeks.org/introduction-to-hibernate-framework/
+
+![Hibernate vs. JDBC](Hibernate%20vs.%20JDBC.png)
+
+Also, it's very inefficient to switch to another databse using JDBC, while using Hibernation, we just need to change the parameter of the configuration file.
