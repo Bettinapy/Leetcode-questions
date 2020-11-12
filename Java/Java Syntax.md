@@ -32,7 +32,7 @@ If we 'add' (+) a string and something else, then the 'something else' is implic
 | --------------------------------------------------------- | ------------------------------------------------------------ |
 | `Cat cat = new Cat(); String text = "The cat is " + cat;` | `Cat cat = new Cat();` `String s = cat.toString();` `String text = "The cat is " + s;` |
 
-#### 4.1 Escapting characters
+#### 4.1 Escaping characters
 
 ```java
  String windows = "This is a Windows path: \"C:\\Program Files\\Java\\jdk1.8.0_172\\bin\"";
@@ -44,6 +44,65 @@ If we 'add' (+) a string and something else, then the 'something else' is implic
 This is a Windows path: "C:\Program Files\Java\jdk1.8.0_172\bin" 
 
 This is a Java string: \"C:\\Program Files\\Java\\jdk1.8.0_172\\bin\"
+
+#### 4.2. Concatenate ArrayList when ArrayList is not a String list
+
+```java
+package com.codegym.task.task09.task0923;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/* 
+Vowels and consonants
+
+*/
+
+public class Solution {
+    public static char[] vowels = new char[]{'a', 'e', 'i', 'o', 'u'};
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        ArrayList<Character> wordVowels = new ArrayList<Character>();
+        ArrayList<Character> wordConsonants = new ArrayList<Character>();
+        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+        String[] words = s.split(" ");
+        
+        for(int i = 0; i < words.length; i++){
+            for(int j = 0; j < words[i].length(); j++){
+                Character wordChar = words[i].charAt(j);
+                if(isVowel(wordChar)) wordVowels.add(wordChar);
+                else wordConsonants.add(wordChar);
+            }
+        }
+        String lineVowels = wordVowels.stream().map(Object::toString)
+                            .collect(Collectors.joining(" "));
+        String lineConsonants = wordConsonants.stream().map(Object::toString)
+                                .collect(Collectors.joining(" "));
+        
+        System.out.println(lineVowels + " ");
+        System.out.println(lineConsonants + " ");
+    }
+
+    // The method checks whether a letter is a vowel
+    public static boolean isVowel(char c) {
+        c = Character.toLowerCase(c);  // Convert to lowercase
+
+        for (char d : vowels)   // Look for vowels in the array
+        {
+            if (c == d)
+                return true;
+        }
+        return false;
+    }
+}
+```
+
+
 
 ### 5. Keyboard Input
 
@@ -272,6 +331,8 @@ Generics are types that have a parameter. When we declare a generic variable, we
 
 e.g. `ArrayList<String> list = new ArrayList<String>();`
 
+
+
 ### 14. Collection (Important!)
 
 #### 14.1. Intro
@@ -468,6 +529,110 @@ public class Solution {
 }
 ```
 
+#### 15.2 Sort numbers and strings
+
+```java
+package com.codegym.task.task09.task0930;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.*;
+
+/* 
+Task about algorithms
+
+*/
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> list = new ArrayList<String>();
+        String s = "";
+        while (true) {
+            s = reader.readLine();
+
+            if (s == "null" || s.isEmpty()) break;
+            list.add(s);
+        }
+
+        String[] array = list.toArray(new String[list.size()]);
+        sort(array);
+
+        for (String x : array) {
+            System.out.println(x);
+        }
+    }
+
+    public static void sort(String[] array) {
+        // write your code here
+        ArrayList<String> stringList = new ArrayList<String>();
+        ArrayList<Integer> numberList = new ArrayList<Integer>();
+        
+        for(int i = 0; i < array.length; i++){
+            if(isNumber(array[i])) numberList.add(Integer.parseInt(array[i]));
+            else stringList.add(array[i]);
+        }
+        
+        /* Sorting in decreasing order*/
+	   Collections.sort(numberList, Collections.reverseOrder());
+	   
+	   /* Sorting string list */
+        boolean sorted = false;
+        
+        while(!sorted){
+            sorted = true;
+            for(int i = 0 ; i < stringList.size() - 1; i++){
+                if(isGreaterThan(stringList.get(i), stringList.get(i+1))){
+                    Collections.swap(stringList, i, i+1);
+                    sorted = false;
+                }
+            }
+        }
+        
+        // replace the corresponding value in array 
+        int numberListIdx = 0;
+        int stringListIdx = 0;
+        for(int i = 0; i < array.length; i++){
+            if(isNumber(array[i])){
+                array[i] = Integer.toString(numberList.get(numberListIdx));
+                numberListIdx++;
+            }else{
+                array[i] = stringList.get(stringListIdx);
+                stringListIdx++;
+            }
+        }
+        
+    }
+
+    // String comparison method: 'a' is greater than 'b'
+    public static boolean isGreaterThan(String a, String b) {
+        return a.compareTo(b) > 0;
+    }
+
+
+    // Is the passed string a number?
+    public static boolean isNumber(String s) {
+        if (s.length() == 0) return false;
+
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if ((i != 0 && c == '-') // The string contains a hyphen
+                    || (!Character.isDigit(c) && c != '-') // or is not a number and doesn't start with a hyphen
+                    || (i == 0 && c == '-' && chars.length == 1)) // or is a single hyphen
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+```
+
+
+
 ### 16. Date
 
 Use calendar 
@@ -511,6 +676,40 @@ public class Solution {
 }
 
 ```
+
+#### 16.1. Parse date string and format date
+
+```java
+package com.codegym.task.task09.task0922;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+/* 
+What's today's date?
+
+*/
+
+public class Solution {
+
+    public static void main(String[] args) throws Exception {
+        //write your code here
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = df.parse(reader.readLine());
+        System.out.println(date);
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH);
+        String formattedDate = formatter.format(date);
+        System.out.println(formattedDate.toUpperCase());
+    }
+}
+
+```
+
+
 
 ### 17. Stack 
 
@@ -565,6 +764,82 @@ We can use `try-catch` to catch the exception without terminating the program.
 
 - checked exceptions: exceptions that are checked at compile time. `e.g. read file, if file does not exist, a FileNotFoundException will be returned (IOException) at compile time`
   - we can handle checked exceptions by **throw** and **try-catch**
-- unchecked exceptions: exceptions are not checked at run time. `e.g. ArithmeticException. even though we have it, we can still compile it. but the errors will be returned at run time.`
+- unchecked exceptions: exceptions are not checked at compile time. `e.g. ArithmeticException. even though we have it, we can still compile it. but the errors will be returned at run time.`
   - we often handle unchecked exceptions by **try-catch**
+
+#### 18.2. Exception examples
+
+##### 18.2.1. InterruptedException
+
+if a [`Thread`](http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html) is sleeping, the thread may be interrupted e.g. with [`Thread.interrupt()`](http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#interrupt--) by another thread in which case the sleeping thread (the `sleep()` method) will throw an instance of this `InterruptedException`.
+
+```java
+package com.codegym.task.task09.task0920;
+
+/* 
+Countdown
+
+*/
+
+public class Solution {
+    public static void main(String[] args) {
+        for (int i = 10; i >= 0; i--) {
+            System.out.println(i);
+
+            //write your code here
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+```
+
+##### 18.2.2. IOException
+
+```java
+package com.codegym.task.task09.task0921;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.io.*;
+
+/* 
+Method in a try-catch
+
+*/
+
+public class Solution {
+    public static void main(String[] args) {
+        readData();
+    }
+
+    public static void readData() {
+        //write your code here
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        int num;
+        try{
+            while(true){
+                num = Integer.parseInt(reader.readLine());
+                numbers.add(num);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            
+            for(Integer n: numbers){
+                System.out.println(n);
+            }
+        }
+    }
+}
+
+```
 
