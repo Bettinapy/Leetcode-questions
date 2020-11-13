@@ -112,13 +112,13 @@ Threads can be created by using two mechanisms :
 
 ## 2. OOP
 
-As the name suggests, Object-Oriented Programming or OOPs refers to languages that uses objects in programming. Object-oriented programming aims to implement real-world entities like inheritance, hiding, polymorphism etc in programming. The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
+As the name suggests, Object-Oriented Programming or OOPs refers to languages that use objects in programming. Object-oriented programming aims to implement real-world entities like inheritance, hiding, polymorphism etc in programming. The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
 
 There are FOUR main concepts of OOP in Java: abstraction, encapsulation, inheritance and polymorphism
 
 ### 2.1. Abstraction: Abstract classes and Interfaces
 
-Data Abstraction is the property by virtue of which only the essential details are displayed to the user.The trivial or the non-essentials units are not displayed to the user. Ex: A car is viewed as a car rather than its individual components.
+Data Abstraction is the property by virtue of which only the essential details are displayed to the user. The trivial or the non-essentials units are not displayed to the user. Ex: A car is viewed as a car rather than its individual components.
 
 Data Abstraction may also be defined as the process of identifying only the required characteristics of an object ignoring the irrelevant details. The properties and behaviours of an object differentiate it from other objects of similar type and also help in classifying/grouping the objects.
 
@@ -187,7 +187,29 @@ public static void main(String[] args){
 }
 ```
 
-Abstract class is like the parent, while interface is like the rule. You inherit from the parent, and you need to follow the rules.
+**Abstract class vs Interface**
+
+1. **Type of methods:** Interface can have only abstract methods. Abstract class can have abstract and non-abstract methods. From Java 8, it can have default and static methods also.
+2. **Final Variables:** Variables declared in a Java interface are by default final. An abstract class may contain non-final variables.
+3. **Type of variables:** Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
+4. **Implementation:** Abstract class can provide the implementation of interface. Interface can’t provide the implementation of abstract class.
+5. **Inheritance vs Abstraction:** A Java interface can be implemented using keyword “implements” and abstract class can be extended using keyword “extends”.
+6. **Multiple implementation:** An interface can extend another Java interface only, an abstract class can extend another Java class and implement multiple Java interfaces.
+7. **Accessibility of Data Members:** Members of a Java interface are public by default. A Java abstract class can have class members like private, protected, etc.
+
+**When to use what?**
+
+Consider using abstract classes if any of these statements apply to your situation:
+
+- In java application, there are some related classes that need to share some lines of code then you can put these lines of code within abstract class and this abstract class should be extended by all these related classes.
+- You can define non-static or non-final field(s) in abstract class, so that via a method you can access and modify the state of Object to which they belong.
+- You can expect that the classes that extend an abstract class have many common methods or fields, or require access modifiers other than public (such as protected and private).
+
+Consider using interfaces if any of these statements apply to your situation:
+
+- It is total abstraction, All methods declared within an interface must be implemented by the class(es) that implements this interface.
+- A class can implement more than one interface. It is called multiple inheritance.
+- You want to specify the behavior of a particular data type, but not concerned about who implements its behavior.
 
 ### 2.2 Run-time Polymorphism
 
@@ -204,7 +226,8 @@ In this process, an overridden method is called through the reference variable o
 ### 2.4. Can you override a private or static method?
 
 - Private methods cannot be overridden because they are not visible from any other class.
-- For static method: If you create a similar method with same return type and same method arguments in child class then it will hide the super class method. This is known as method hiding. It's DIFFERENT from method overriding. BTW, Static methods should be called on CLASS.
+- For static method: If you create a similar method with same return type and same method arguments in child class then it will hide the super class method. This is known as method hiding. It's DIFFERENT from method overriding. BTW, Static methods should be called on CLASS. 
+  - **Static methods** in **Java** are **inherited**, but can not be overridden. If you declare the same **method** in a subclass, you hide the superclass **method** instead of overriding it.
 
 ### 2.5. Multiple inheritance
 
@@ -255,7 +278,7 @@ To achieve encapsulation in Java −
 
 
 
-#### 2.7. Private, Public, Protected, Default
+### 2.7. Private, Public, Protected, Default
 
 You must have seen public, private and protected keywords while practising java programs, these are called access modifiers. An access modifier restricts the access of a class, constructor, data member and method in another class. 
 
@@ -274,7 +297,16 @@ private     | Yes   |  No     |    No        |    No        |   No  |
 ------------+-------+---------+--------------+--------------+--------
 ```
 
+### 2.8. Inheritance
 
+It is the mechanism in java by which one class is allow to inherit the features(fields and methods) of another class.
+
+**Important facts about inheritance in Java**
+
+- **Default superclass**: Except [Object](https://www.geeksforgeeks.org/object-class-in-java/) class, which has no superclass, every class has one and only one direct superclass (single inheritance). In the absence of any other explicit superclass, every class is implicitly a subclass of [Object](https://www.geeksforgeeks.org/object-class-in-java/) class.
+- **Superclass can only be one:** A superclass can have any number of subclasses. But a subclass can have only **one** superclass. This is because Java does not support [multiple inheritance](https://www.geeksforgeeks.org/java-and-multiple-inheritance/) with classes. Although with interfaces, multiple inheritance is supported by java.
+- **Inheriting Constructors:** A subclass inherits all the members (fields, methods, and nested classes) from its superclass. Constructors are not members, so they are not inherited by subclasses, but the constructor of the superclass can be invoked from the subclass.
+- **Private member inheritance:** A subclass does not inherit the private members of its parent class. However, if the superclass has public or protected methods(like getters and setters) for accessing its private fields, these can also be used by the subclass.
 
 ## 3. Servlets
 

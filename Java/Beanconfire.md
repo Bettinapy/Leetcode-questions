@@ -6,7 +6,15 @@
 
 过了就约时间网上笔试. 网上笔试时间一个小时，用Skype. 面试官是个华人小哥，首先还是问一下背景和简历，然后就问有没有用过Java相关的framwork, 比如Spring boot 啥的，然后就是一堆关于Java的问题: 
 
-什么是abstract class和interface？ 什么是final？ 什么是method ovrriding和method overloading？ method overriding 和 method overloading 可不可以用final? 
+什么是abstract class和interface？ 
+
+什么是final？ 
+
+什么是method ovrriding和method overloading？ 
+
+method overriding 和 method overloading 可不可以用final? 
+
+- private and **final methods can** be **overloaded** but they cannot be **overridden**. It means a class **can** have more than one private/**final methods** of same name but a child class cannot **override** the private/**final methods** of their base class.
 
 abstract class 和 interface可不可以用final? 
 
@@ -32,12 +40,37 @@ https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=680458&highlight=b
 
 Interview Questions
 
-\1. polymorphism?
-\2. inheritance?
-\3. overwrite vs overload.
-\4. what is OOP?  
+1. polymorphism?
 
+   Polymorphism: It's a characteristic of being able to assign a different meaning or usage to something in different contexts.
 
+   There are two types of polymorphism in Java: compile-time polymorphism and runtime polymorphism. We can perform polymorphism in java by method overloading and method overriding.
+
+2. inheritance?
+
+   It is the mechanism in java by which one class is allow to inherit the features(fields and methods) of another class.
+
+3. overwrite vs overload.
+
+![method overriding and method overloading](C:\Users\betti\Desktop\Leetcode-questions\Java\method overriding and method overloading.png)
+
+4. what is OOP?  
+
+   As the name suggests, Object-Oriented Programming or OOPs refers to languages that use objects in programming. Object-oriented programming aims to implement real-world entities like inheritance, hiding, polymorphism etc in programming. The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
+
+   There are FOUR main concepts of OOP in Java: abstraction, encapsulation, inheritance and polymorphism
+
+5. What is final and static?
+
+   **final** keyword implies something, which cannot be changed. For example - **final** variables cannot be reassigned, **final** fields in a class cannot be set once they’re defined, **final** methods cannot be overridden, and, **final** classes cannot be extended/subclassed. 
+
+   **static** keyword in Java and C++ have the same meaning. **static** denotes a property, which is shared by all objects/instances of a class and does not vary from one instance to another. This also means, that you do not need an instance to get access to **static** members, they can be accessed via the class itself. 
+
+6. Abstract class and Interface
+
+   Data Abstraction is the property by virtue of which only the essential details are displayed to the user. The trivial or the non-essentials units are not displayed to the user. Ex: A car is viewed as a car rather than its individual components.
+
+   In java, abstraction is achieved by [interfaces](https://www.geeksforgeeks.org/interfaces-in-java/) and [abstract classes](https://www.geeksforgeeks.org/abstract-classes-in-java/). We can achieve 100% abstraction using interfaces.
 
 ### 3. Interview 3
 
@@ -46,3 +79,6 @@ what is interface?
 what is final and static?  
 
 Whats difference between abstract class and interface.  
+
+
+
