@@ -843,3 +843,59 @@ public class Solution {
 
 ```
 
+### 19. Type
+
+#### 19.1. Type conversion
+
+- widening primitive type
+
+  ```java
+  byte a = 115;
+  int b = a;
+  ```
+
+- narrowing primitive type: use **cast**
+
+  - **A cast operator** must be put before a number/variable anytime part of the number will be discarded or when a narrowing primitive conversion occurs. The cast operator only affects the number/variable that directly follows it.
+
+  ```java
+  int c = 10000;
+  byte d = (byte) c;
+  ```
+
+**The IEEE has defined certain standards for floating point numbers which include definitions for "Not a Number"(NaN)  and positive and negative infinity. These do not apply to integers. so, the jvm won't throw an exception when double/0 or long/0.0. 
+
+But if it is an integer division it will throw an arithmetic exception.
+
+```java
+public class Solution {
+    public static void main(String[] args) {
+        int a = 0;
+        int b = a + 46;
+        byte c = (byte) (a * b);
+        double f = 1234.15;
+        long d = (long) (a + f / c + b);
+        System.out.println(d);
+    }
+}
+```
+
+#### 19.2. Object casting
+
+You can assign any reference type to such a variable (**narrowing conversion**). However, to make the assignment in the other direction (**widening conversion**), you must explicitly indicate a cast operation:"
+
+A widening or narrowing reference conversion **doesn't change the object** in any way.
+
+```
+// this will cause RUN-TIME ERROR
+Object o = 123; // o stores an Integer
+Float s2 = (Float) o;
+
+// this works fine
+Object o = 123f; // o stores a Float
+Float s2 = (Float) o;
+```
+
+#### 19.3. Literal
+
+code consists of methods, classes, variables, etc., but literals are specific values written directly in the code
